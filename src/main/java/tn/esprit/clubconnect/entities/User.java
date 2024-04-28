@@ -48,6 +48,8 @@ public class User implements Serializable, UserDetails {
     @ManyToMany
     Set<Club> clubs;
 
+    long points;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
