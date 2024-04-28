@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.clubconnect.Services.ICloudinaryService;
-import tn.esprit.clubconnect.Services.IClubService;
-import tn.esprit.clubconnect.Services.IEventServices;
+
 import tn.esprit.clubconnect.entities.Event;
+import tn.esprit.clubconnect.services.ICloudinaryService;
+import tn.esprit.clubconnect.services.IEventServices;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ public class EventConntroller {
 
     private final IEventServices eventServices;
     private final ICloudinaryService cloudinaryService;
-    private final IClubService clubService;
+    //private final IClubService clubService;
 
 
 

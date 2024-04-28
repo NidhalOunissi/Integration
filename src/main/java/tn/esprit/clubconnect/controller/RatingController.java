@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tn.esprit.clubconnect.Services.RatingService;
 import tn.esprit.clubconnect.entities.Rating;
+import tn.esprit.clubconnect.services.RatingService;
 
 @RestController
 @RequiredArgsConstructor
