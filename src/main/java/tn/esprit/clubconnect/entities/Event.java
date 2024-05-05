@@ -3,11 +3,10 @@ package tn.esprit.clubconnect.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -21,10 +20,17 @@ public class Event implements Serializable {
     int idE;
     String title;
     String description;
-    LocalDateTime startDate;
-    LocalTime duration;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate startDate;
+
+    int  duration;
     String location;
-    String affiche;
+    @OneToOne(cascade = CascadeType.MERGE)
+    Image image;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    User user;
+
+
 
     @ManyToOne
     Club club;
