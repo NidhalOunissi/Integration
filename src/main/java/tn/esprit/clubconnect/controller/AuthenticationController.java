@@ -23,12 +23,12 @@ public class AuthenticationController {
     private final IMemberService memberService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register (@RequestBody RegisterRequest request) throws MessagingException {
+    public ResponseEntity<?> register (RegisterRequest request) throws MessagingException {
 
         var response = authenticationService.register(request);
         if(request.isTfaEnbaled())
             return ResponseEntity.ok(response);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok().build();
 
     }
 
