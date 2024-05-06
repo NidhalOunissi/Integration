@@ -60,8 +60,8 @@ public class AuthenticationController {
     }
 
     @PutMapping("/reset-password")
-    public void resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest, @RequestParam String Token) {
-        memberService.resetPassword(resetPasswordRequest, Token);
+    public void resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest, String token) {
+        memberService.resetPassword(resetPasswordRequest, token);
     }
 
 

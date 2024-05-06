@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,8 +42,8 @@
     <h1>Reset Password</h1>
     <p>Click the link below to reset your password:</p>
     <div class="reset-link">
-        <!-- Assuming 'token' is a variable containing the token value -->
-        <a href="reset-password.html?token=${token}">Reset Password</a>
+        <!-- Thymeleaf expression to include resetUrl in the href attribute -->
+        <a th:href="${resetUrl}">Reset Password</a>
     </div>
 </div>
 </body>

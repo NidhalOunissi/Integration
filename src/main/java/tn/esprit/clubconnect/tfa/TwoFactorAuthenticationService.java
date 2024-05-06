@@ -28,7 +28,7 @@ public class TwoFactorAuthenticationService {
                 .label("Club Connect")
                 .secret(secret)
                 .issuer("Club Connect Team")
-                .algorithm(HashingAlgorithm.SHA256)
+                .algorithm(HashingAlgorithm.SHA1)
                 .digits(6)
                 .period(30)
                 .build();

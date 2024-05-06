@@ -175,7 +175,12 @@ private final String activationUrl = "http://localhost:4200/activate-account";
             var refreshToken = jwtService.generateRefreshToken(user);
             revokeAllUserToken(user);
             saveUserToken(user, jwtToken);
-            return AuthenticationResponse.builder().user(user).token(jwtToken).refresh_token(refreshToken).build();
+            return AuthenticationResponse.builder()
+                    .user(user)
+                    .token(jwtToken)
+                    .tfaEnbaled(false)
+                    .refresh_token(refreshToken)
+                    .build();
         }else {
             throw new RuntimeException("User not found");
         }
