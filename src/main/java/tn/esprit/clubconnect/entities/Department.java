@@ -1,5 +1,6 @@
 package tn.esprit.clubconnect.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,7 +24,9 @@ public class Department implements Serializable {
     int memberCount;
 
     @ManyToOne
+    @JsonBackReference
     Club club;
+
 
     @OneToMany(mappedBy = "department")
     Set<Interview> interviews;

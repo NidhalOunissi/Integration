@@ -16,10 +16,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Image implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String name;
-    String url;
-}
+    public class Image implements Serializable {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        int id;
+        String name;
+        String url;
+    }
+

@@ -1,9 +1,7 @@
 package tn.esprit.clubconnect.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import tn.esprit.clubconnect.entities.Club;
 
-import java.util.Optional;
-
-public interface IClubRepository extends CrudRepository<Club, Integer> {
+public interface IClubRepository extends JpaRepository<Club,Long> {
 }

@@ -1,14 +1,7 @@
 package tn.esprit.clubconnect.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import tn.esprit.clubconnect.entities.User;
 
-import java.util.Optional;
-
-public interface IUserRepository extends CrudRepository<User, Integer> {
-
-    Optional<User> findByEmail (String email);
-    User findByIdU (int id);
-    Optional<User> findByTokens_Token(String token);
-
+public interface IUserRepository extends JpaRepository<User,Long> {
 }

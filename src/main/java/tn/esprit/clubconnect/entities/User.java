@@ -3,13 +3,8 @@ package tn.esprit.clubconnect.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import tn.esprit.clubconnect.token.Token;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -18,29 +13,28 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 @Entity
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idU;
     String firstName;
+
     String lastName;
+
     String email;
-    String phone;
+
     String password;
+
     String pseudoname;
+
     @Enumerated(EnumType.STRING)
     Role role;
-    @OneToMany(mappedBy = "user")
-    List<Token> tokens;
 
-    Boolean enabled;
-    Boolean locked;
-    //Two Factor Auth
-    boolean tfaEnabled;
-    String secret;
+    private boolean highlyInvolved;
+
+    private double attritionProbability;
 
     @OneToMany(mappedBy = "user")
     Set<Reclamation> reclamations;
@@ -48,38 +42,33 @@ public class User implements Serializable, UserDetails {
     @ManyToMany
     Set<Club> clubs;
 
-    long points;
+    @ManyToMany
+    Set<Event> events;
+
+    @ManyToMany
+    Set<Training> trainings;
+
+   /* @ManyToMany
+    @JoinTable(
+            name = "user_event",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    private List<Event> events;*/
+
+    /*@ManyToMany
+    @JoinTable(
+            name = "user_training",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "training_id"))
+    private List<Training> trainings;*/
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
-    }
+    @OneToMany(mappedBy = "user")
+    private List<FundRaisingC> fundraisings;
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<ProjectC> projects;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public String fullname (){return (firstName+ " " +lastName);}
 }

@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @Getter
 public class ImageModel {
-    private String name;
+    private  String name;
     private MultipartFile file;
+
+
 }
