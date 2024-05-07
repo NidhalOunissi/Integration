@@ -1,6 +1,8 @@
 package tn.esprit.clubconnect.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.clubconnect.entities.Reclamation;
 import tn.esprit.clubconnect.entities.TypeR;
@@ -54,5 +56,16 @@ public class ReclamationRestController {
     public List<Reclamation> getReclamationsByPriority() {
         return reclamationServices.getReclamationsByPriority();
 }
+
+    @PostMapping("/addAndAssignToUser")
+    public ResponseEntity<Reclamation> addAndAssignReclamationToUser(@RequestBody Reclamation reclamation) {
+        try {
+            Reclamation savedReclamation = reclamationServices.addAndAssignReclamationToUser(reclamation);
+            return new ResponseEntity<>(savedReclamation, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
+
 

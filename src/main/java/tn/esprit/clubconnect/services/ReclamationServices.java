@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.clubconnect.entities.Reclamation;
 import tn.esprit.clubconnect.entities.TypeR;
+import tn.esprit.clubconnect.entities.User;
 import tn.esprit.clubconnect.repositories.IReclamationRepository;
+import tn.esprit.clubconnect.repositories.IUserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class ReclamationServices implements IReclamationServices{
     @Autowired
     IReclamationRepository reclamationRepository;
+    IUserRepository userRepository;
 
     @Override
     public Reclamation addReclamation(Reclamation reclamation) {
@@ -104,11 +107,22 @@ public class ReclamationServices implements IReclamationServices{
                 .orElse(0L);
     }
 
+    public Reclamation addAndAssignReclamationToUser(Reclamation reclamation) {
+        // Retrieve the user with ID 1
+        User user = userRepository.findById(1).orElse(null); // Assuming you have UserRepository injected
+
+        if (user != null) {
+            // Assign the user to the reclamation
+            reclamation.setUser(user);
+
+            // Save the reclamation with the assigned user
+            return reclamationRepository.save(reclamation);
+        } else {
+            throw new IllegalArgumentException("User with ID 1 not found.");
+        }
 
 
-
-
-
+    }
 
 }
 
