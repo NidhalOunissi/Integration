@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.clubconnect.entities.Categ;
-import tn.esprit.clubconnect.entities.Club;
-import tn.esprit.clubconnect.entities.Image;
-import tn.esprit.clubconnect.entities.PredictionObject;
+import tn.esprit.clubconnect.entities.*;
 import tn.esprit.clubconnect.repositories.IClubRepository;
 import tn.esprit.clubconnect.repositories.IImageRepository;
 import tn.esprit.clubconnect.services.CloudinaryServiceImpl;
@@ -232,35 +229,13 @@ public class ClubRestController {
     }
 
 
-    /*@GetMapping("/{clubId}/average-user-engagement")
-    public ResponseEntity<Double> getAverageUserEngagement(@PathVariable Long clubId) {
-        double averageUserEngagement = clubServices.calculateAverageUserEngagement(clubId);
-        if (averageUserEngagement >= 0) {
-        return ResponseEntity.ok(averageUserEngagement);
-    } else {
-        return ResponseEntity.notFound().build();
+    @PostMapping("/predict")
+    public Prediction predictProjectsAndFunds(@RequestParam Long clubId, @RequestParam int periodInMonths) {
+        clubServices.predictProjectsAndFundsInPeriodSet2(clubId, periodInMonths);
+        // Retrieve the last prediction from the list of predictions
+        List<Prediction> allPredictions = clubServices.getAllPredictions();
+        return allPredictions.stream().reduce((first, second) -> second).orElse(null);
     }
-}*/
-
-    /*@GetMapping("/{clubId}/total-funds-raised")
-    public ResponseEntity<Double> getTotalFundsRaised(@PathVariable Long clubId) {
-        double totalFundsRaised = clubServices.calculateTotalFundsRaised(clubId);
-        if (totalFundsRaised >= 0) {
-            return ResponseEntity.ok(totalFundsRaised);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
-
-   /* @GetMapping("/{clubId}/number-of-projects")
-    public ResponseEntity<Integer> getNumberOfProjects(@PathVariable Long clubId) {
-        int numberOfProjects = clubServices.calculateNumberOfProjects(clubId);
-        if (numberOfProjects >= 0) {
-            return ResponseEntity.ok(numberOfProjects);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
 
 
 
@@ -333,16 +308,7 @@ public class ClubRestController {
         return ResponseEntity.ok(predictionList);
     }*/
 
-    @GetMapping("/{clubId}/predict")
-    public ResponseEntity<List<PredictionObject>> predictProjectsAndFundsInPeriod(
-            @PathVariable Long clubId,
-            @RequestParam int periodInMonths) {
 
-        Map<String, Object> predictionMap = clubServices.predictProjectsAndFundsInPeriod(clubId, periodInMonths);
-        List<PredictionObject> predictionList = clubServices.convertPredictionMapToList(predictionMap, clubId, periodInMonths);
-
-        return ResponseEntity.ok(predictionList);
-    }
 
     @PostMapping("/analyze-attendance-and-predict-attrition/{clubId}")
     public ResponseEntity<Map<String, List<Map<String, Object>>>>
