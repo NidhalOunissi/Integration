@@ -13,6 +13,7 @@ import tn.esprit.clubconnect.repositories.IInterviewRepository;
 import tn.esprit.clubconnect.repositories.IUserRepository;
 import tn.esprit.clubconnect.requestAndresponse.ChangePasswordRequest;
 import tn.esprit.clubconnect.requestAndresponse.ResetPasswordRequest;
+import tn.esprit.clubconnect.requestAndresponse.UpdateProfileRequest;
 import tn.esprit.clubconnect.token.ITokenRepository;
 import tn.esprit.clubconnect.token.Token;
 
@@ -52,9 +53,14 @@ public class MemberService implements IMemberService{
     }
 
     @Override
-    public void updateProfile(User user, int idU) {
-        user = userRepository.findById(idU).orElse(null);
-        assert user != null;
+    public void updateProfile(UpdateProfileRequest request, int idU) {
+
+        User user = userRepository.findById(idU).orElse(null);
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPseudoname(request.getPseudoname());
+        user.setPhone(request.getPhone());
         userRepository.save(user);
 
     }
