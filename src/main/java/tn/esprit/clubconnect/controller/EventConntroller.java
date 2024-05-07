@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/event")
+@RequestMapping("/api/v1/clubadmin/event")
 @CrossOrigin("http://localhost:4200")
 
 public class EventConntroller {
