@@ -50,7 +50,9 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                         .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**",
+                        .requestMatchers(
+                                "/api/**",
+                                "/api/v1/auth/**",
                                 "/api/v1/auth/refresh-token",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
