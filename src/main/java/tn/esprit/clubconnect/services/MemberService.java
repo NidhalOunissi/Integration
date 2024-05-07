@@ -31,7 +31,7 @@ public class MemberService implements IMemberService{
     private final EmailService emailService;
     private final JwtService jwtService;
     private final ITokenRepository tokenRepository;
-    private final String  resetPwd = "http://localhost:4200/";
+//    private final String  resetPwd = "http://localhost:4200/";
 
 
 
@@ -94,7 +94,8 @@ public class MemberService implements IMemberService{
         try {
             //var code =jwtService.generateActivationCode(6);
             var code = jwtService.generateAndSaveActivationToken(user);
-            emailService.sendResetPasswordEmail(email,user.getLastName()+" "+user.getLastName(),resetPwd,code,"Reset Password");
+            String resetPwd = "http://localhost:4200/forgot-password?token="+code;
+            emailService.sendResetPasswordEmail(email,user.getLastName()+" "+user.getLastName(),resetPwd,"Reset Password");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

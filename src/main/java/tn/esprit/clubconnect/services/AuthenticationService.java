@@ -43,7 +43,8 @@ public class AuthenticationService implements IAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final TwoFactorAuthenticationService tfaService;
-    private final String activationUrl = "http://localhost:8090/api/v1/auth/activate-account";
+//    private final String activationUrl = "http://localhost:8090/api/v1/auth/activate-account";
+private final String activationUrl = "http://localhost:4200/activate-account";
 
 
     public void confirmAccount (String token) throws MessagingException {
@@ -174,7 +175,12 @@ public class AuthenticationService implements IAuthenticationService {
             var refreshToken = jwtService.generateRefreshToken(user);
             revokeAllUserToken(user);
             saveUserToken(user, jwtToken);
-            return AuthenticationResponse.builder().user(user).token(jwtToken).refresh_token(refreshToken).build();
+            return AuthenticationResponse.builder()
+                    .user(user)
+                    .token(jwtToken)
+                    .tfaEnbaled(false)
+                    .refresh_token(refreshToken)
+                    .build();
         }else {
             throw new RuntimeException("User not found");
         }

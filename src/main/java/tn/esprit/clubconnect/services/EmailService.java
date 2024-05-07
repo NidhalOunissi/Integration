@@ -71,7 +71,7 @@ public class EmailService {
 
     }
 
-    public void sendResetPasswordEmail(String to, String username, String resetUrl, String token, String subject) throws MessagingException {
+    public void sendResetPasswordEmail(String to, String username, String resetUrl, String subject) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(
                 mimeMessage,
@@ -82,8 +82,7 @@ public class EmailService {
         Map<String, Object> properties = new HashMap<>();
         properties.put("username", username);
         properties.put("resetUrl", resetUrl);
-        properties.put("token", token);
-
+        properties.put("subject", subject);
 
         Context context = new Context();
         context.setVariables(properties);
@@ -96,6 +95,7 @@ public class EmailService {
         helper.setText(template, true);
         mailSender.send(mimeMessage);
     }
+
 }
 
 

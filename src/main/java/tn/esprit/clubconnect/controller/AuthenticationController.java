@@ -23,12 +23,12 @@ public class AuthenticationController {
     private final IMemberService memberService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register (@RequestBody RegisterRequest request) throws MessagingException {
+    public ResponseEntity<?> register (RegisterRequest request) throws MessagingException {
 
         var response = authenticationService.register(request);
         if(request.isTfaEnbaled())
             return ResponseEntity.ok(response);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok().build();
 
     }
 
@@ -60,8 +60,8 @@ public class AuthenticationController {
     }
 
     @PutMapping("/reset-password")
-    public void resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest, @RequestParam String Token) {
-        memberService.resetPassword(resetPasswordRequest, Token);
+    public void resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest, String token) {
+        memberService.resetPassword(resetPasswordRequest, token);
     }
 
 
